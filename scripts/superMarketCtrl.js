@@ -105,9 +105,10 @@ var check = checkItemDuplication($scope.userItems, itemBeingAdd.barcode);
 
   };
 
-  $scope.getItemCost = function(item) {
-      return item.qty * item.price;
-    };
+
+    $scope.getItemCost = totalService.getItemCost($scope.userItems);
+
+
 
     $scope.clearCart = function() {
       $scope.userItems.length = 0;
