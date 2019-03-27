@@ -1,0 +1,43 @@
+<head>
+
+    <title>Check Out Confirmation</title>
+
+</head>
+
+<body>
+
+    <div>
+
+      <h2>Please Review Total Below:</h2>
+
+          <div class="row">
+
+                <h2>Your Cart:</h2>
+
+                <li class="usersCart" ng-repeat="objects in userItems | orderBy:'name'">
+
+                        <span> {{ objects.qty + ' x ' + objects.name + ' = ' + (getitemCost(objects) | currency) }}</span>
+
+                        <button class="btn-danger btn-xs" ng-click="removeItem(item);">Remove Item</button>
+                </li>
+
+
+                <h2>Total: {{ getTotal() | currency }}</h2>
+
+                <button class="btn-danger btn-xs" ng-click="clearCart()">Clear Cart</button>
+
+          </div>
+
+    </div>
+
+
+
+  <footer class="row">
+
+     <button type="submit" class="btn btn-default">Submit Payment</button>
+
+     <button class="btn btn-default" ng-click="clearCart()">Cancel</button>
+
+  </footer>
+
+</body>

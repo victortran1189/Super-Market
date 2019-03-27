@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+
+    <title>Super Market Cart</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+<div>
+
+        <div class="form-group">
+
+            <h2>Users Shopping List</h2>
+
+            <h4>Search by: <input type="text" ng-model="searchText"></h4>
+
+
+//List of items Below
+
+    <div class="row">
+        <table class="table col-md-12 col-lg-12">
+          <thead>
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>BarCode Number</th>
+            <th>Price</th>
+            <th class="qty">Qty</th>
+            <th>Total</th>
+          </tr>
+
+          <tr ng-repeat="item in inventory | filter:searchText | orderBy:'name' ">
+            <td>{{ item.name }}</td>
+            <td>{{ item.BarCode}}</td>
+            <td ng-class="{ 'bundle' : item.bundle, 'tax' : item.tax}">{{ item.price * (item.tax) || item.price  | currency }}</td>
+            <td><input type="number" ng-model="item.qty" class="qty"></td>
+            <td>{{ item.qty * item.price | currency }}</td>
+            <td>
+              <button class="btn-primary" ng-click="addItem(item)">Add to Cart</button></td>
+          </tr>
+        </table>
+      </div>
+
+
+
+
+//Lists Users Cart after adding items
+
+        <div class="row">
+
+            <h2>Your Cart:</h2>
+
+            <li class="usersCart" ng-repeat="objects in userItems | orderBy:'name'">
+
+                    <span> {{ objects.qty + ' x ' + objects.name + ' = ' + (getitemCost(objects) | currency) }}</span>
+
+                    <button class="btn-danger btn-xs" ng-click="removeItem(item);">Remove Item</button>
+            </li>
+
+
+      //Calculate Users Total
+
+            <h2>Total: {{ getTotal() | currency }}</h2>
+
+            <button class="btn-danger btn-xs" ng-click="clearCart()">Clear Cart</button>
+
+      </div>
+
+
+          <button class="btn btn-primary" ng-click="checkout()">Proceed to Checkout</button>
+
+
+        </div>
+
+
+</div>
+
+
+</body>
